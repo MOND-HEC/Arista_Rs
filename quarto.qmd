@@ -28,7 +28,7 @@ The `echo: false` option disables the printing of code (only output is displayed
 
 |                                                                                                                                                    |
 |------------------------------------------------------------------------|
-| title: "como usar quarto" author: "Erik Vilchez Bustamante" format: html: toc: true toc-location: left number-sections: true embed_resources: true |
+| title: "como usar quarto" author: "Hector Stalin Arista Fernandez" format: html: toc: true toc-location: left number-sections: true embed_resources: true |
 
 # Quarto
 
