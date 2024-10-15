@@ -259,6 +259,508 @@ window.Quarto = {
 <li>hacer puch al repositor</li>
 <li>Activas GitHub Pages</li>
 </ol>
+<p>#IMPORTAR ARCHIVO</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">'https://inkaverse.com/setup.r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ The googlesheets4 package is using a cached token for
+  'hectorarista2104@gmail.com'.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ The googledrive package is using a cached token for
+  'hectorarista2104@gmail.com'.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>gs <span class="ot">&lt;-</span> url <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_sheets_id</span>()</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">gs4_auth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>! Using an auto-discovered, cached token.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  To suppress this message, modify your code or options to clearly consent to
+  the use of a cached token.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  See gargle's "Non-interactive auth" vignette for more details:</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  &lt;https://gargle.r-lib.org/articles/non-interactive-auth.html&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>ℹ The googlesheets4 package is using a cached token for
+  'hectorarista2104@gmail.com'.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fb <span class="ot">&lt;-</span> gs <span class="sc">%&gt;%</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">range_read</span>(<span class="st">"fb"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Reading from "LA MOLINA 2014 POTATO WUE (FB)".</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>✔ Range ''fb''.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [150 × 18] (S3: tbl_df/tbl/data.frame)
+ $ riego  : chr [1:150] "sequia" "sequia" "irrigado" "sequia" ...
+ $ geno   : chr [1:150] "G01" "G02" "G01" "G02" ...
+ $ block  : num [1:150] 2 4 3 1 2 5 1 4 2 1 ...
+ $ bloque : chr [1:150] "II" "IV" "III" "I" ...
+ $ spad_29: num [1:150] 56.3 52.7 49.2 55.5 58.2 43.5 57.4 56.1 61 60.3 ...
+ $ spad_83: num [1:150] 41.1 47.9 41.6 44.2 32.6 37.8 42.5 35.9 57.5 41.8 ...
+ $ rwc_84 : num [1:150] 61.5 63.2 67.7 64.9 74.5 ...
+ $ op_84  : num [1:150] -2.43 -3.03 -2.5 -2.4 -2.27 ...
+ $ leafdw : num [1:150] 13.28 9.42 18.22 8.84 14.55 ...
+ $ stemdw : num [1:150] 14.87 8.63 24.19 6.58 12.63 ...
+ $ rootdw : num [1:150] 3.83 2.1 3.16 2 1.83 2.83 2.28 3.65 4.04 4.17 ...
+ $ tubdw  : num [1:150] 19.8 17.7 38 13.5 51.1 ...
+ $ biomdw : num [1:150] 51.8 37.8 83.6 30.9 80.2 ...
+ $ hi     : num [1:150] 0.45 0.43 0.455 0.437 0.638 ...
+ $ ttrans : num [1:150] 4.5 3.54 8.39 2.9 7.37 ...
+ $ wue    : num [1:150] 11.51 10.69 9.97 10.65 10.88 ...
+ $ twue   : num [1:150] 4.4 4.99 4.53 4.65 6.94 ...
+ $ lfa    : num [1:150] 2900 2619 7579 2450 5413 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> lfa <span class="sc">~</span> bloque <span class="sc">+</span> riego <span class="sc">+</span> geno <span class="sc">+</span> riego<span class="sc">*</span>geno</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>              ,<span class="at">data =</span> fb)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Variance Table
+
+Response: lfa
+            Df    Sum Sq   Mean Sq   F value              Pr(&gt;F)    
+bloque       4   3435339    858835    1.5616              0.1892    
+riego        1 788556926 788556926 1433.7957 &lt;0.0000000000000002 ***
+geno        14 261729564  18694969   33.9922 &lt;0.0000000000000002 ***
+riego:geno  14 108147972   7724855   14.0457 &lt;0.0000000000000002 ***
+Residuals  116  63797516    549979                                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="box-plot" class="level1">
+<h1>Box plot</h1>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fb, <span class="fu">aes</span>(<span class="at">x =</span> geno, <span class="at">y =</span> lfa, <span class="at">colour =</span> riego)) <span class="sc">+</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.colour =</span> <span class="st">"red"</span> , <span class="at">outlier.shape =</span> <span class="dv">16</span>, <span class="at">outlier.size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"boxplot con interacción de niveles de riego y genotipo"</span> , </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Interacción Riego y Genotipo"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Valor de la variable respuesta"</span>) <span class="sc">+</span></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>))  <span class="co">#Inclinar etiquetas&nbsp;del&nbsp;eje&nbsp;x</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> <span class="fu">aov</span>(<span class="at">formula =</span> hi <span class="sc">~</span> bloque <span class="sc">+</span> riego <span class="sc">+</span> geno <span class="sc">+</span> riego<span class="sc">*</span>geno</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>              ,<span class="at">data =</span> fb)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="do">## Response: hi</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="do">##             Df  Sum Sq  Mean Sq F value                Pr(&gt;F)    </span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="do">## bloque       4 0.09111 0.022778  7.0747         0.00003925028 ***</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="do">## riego        1 0.12176 0.121758 37.8165         0.00000001135 ***</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">## geno        14 2.70077 0.192912 59.9161 &lt; 0.00000000000000022 ***</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="do">## riego:geno  14 0.07762 0.005544  1.7219               0.06019 .  </span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="do">## Residuals  116 0.37349 0.003220                                  </span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a><span class="do">## ---</span></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="do">## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="modelo-lineal" class="level1">
+<h1>modelo lineal</h1>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>modelo <span class="ot">&lt;-</span> lme4<span class="sc">::</span><span class="fu">lmer</span>(<span class="at">formula =</span> lfa <span class="sc">~</span> riego <span class="sc">+</span> geno <span class="sc">+</span> riego<span class="sc">*</span>geno <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>bloque)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>              ,<span class="at">data =</span> fb)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(modelo)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="do">## Analysis of Variance Table</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="do">##            npar    Sum Sq   Mean Sq  F value</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="do">## riego         1 788556926 788556926 1433.796</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="do">## geno         14 261729564  18694969   33.992</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="do">## riego:geno   14 108147972   7724855   14.046</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(inti)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(fb) </span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">##  [1] "riego"   "geno"    "block"   "bloque"  "spad_29" "spad_83" "rwc_84" </span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="do">##  [8] "op_84"   "leafdw"  "stemdw"  "rootdw"  "tubdw"   "biomdw"  "hi"     </span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="do">## [15] "ttrans"  "wue"     "twue"    "lfa"</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(fb)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="do">## tibble [150 × 18] (S3: tbl_df/tbl/data.frame)</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ riego  : chr [1:150] "sequia" "sequia" "irrigado" "sequia" ...</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ geno   : chr [1:150] "G01" "G02" "G01" "G02" ...</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ block  : num [1:150] 2 4 3 1 2 5 1 4 2 1 ...</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ bloque : chr [1:150] "II" "IV" "III" "I" ...</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ spad_29: num [1:150] 56.3 52.7 49.2 55.5 58.2 43.5 57.4 56.1 61 60.3 ...</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ spad_83: num [1:150] 41.1 47.9 41.6 44.2 32.6 37.8 42.5 35.9 57.5 41.8 ...</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ rwc_84 : num [1:150] 61.5 63.2 67.7 64.9 74.5 ...</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ op_84  : num [1:150] -2.43 -3.03 -2.5 -2.4 -2.27 ...</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ leafdw : num [1:150] 13.28 9.42 18.22 8.84 14.55 ...</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ stemdw : num [1:150] 14.87 8.63 24.19 6.58 12.63 ...</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ rootdw : num [1:150] 3.83 2.1 3.16 2 1.83 2.83 2.28 3.65 4.04 4.17 ...</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ tubdw  : num [1:150] 19.8 17.7 38 13.5 51.1 ...</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ biomdw : num [1:150] 51.8 37.8 83.6 30.9 80.2 ...</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ hi     : num [1:150] 0.45 0.43 0.455 0.437 0.638 ...</span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ ttrans : num [1:150] 4.5 3.54 8.39 2.9 7.37 ...</span></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ wue    : num [1:150] 11.51 10.69 9.97 10.65 10.88 ...</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ twue   : num [1:150] 4.4 4.99 4.53 4.65 6.94 ...</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="do">##  $ lfa    : num [1:150] 2900 2619 7579 2450 5413 ...</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">remove_outliers</span>(</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> fb, </span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> lfa <span class="sc">~</span> riego <span class="sc">+</span> geno <span class="sc">+</span> riego<span class="sc">*</span>geno <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>bloque), </span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">plot_diag =</span> <span class="cn">TRUE</span> </span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>model</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a><span class="do">## $data</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a><span class="do">## $data$raw</span></span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a><span class="do">## # A tibble: 150 × 5</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a><span class="do">##    index riego    geno  bloque   lfa</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a><span class="do">##    &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;dbl&gt;</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a><span class="do">##  1 1     sequia   G01   II     2900 </span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a><span class="do">##  2 2     sequia   G02   IV     2619.</span></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a><span class="do">##  3 3     irrigado G01   III    7579.</span></span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a><span class="do">##  4 4     sequia   G02   I      2450.</span></span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a><span class="do">##  5 5     irrigado G03   II     5413.</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a><span class="do">##  6 6     irrigado G04   V      9791.</span></span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a><span class="do">##  7 7     irrigado G01   I      7038.</span></span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a><span class="do">##  8 8     irrigado G05   IV     9794.</span></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a><span class="do">##  9 9     sequia   G06   II     3199.</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a><span class="do">## 10 10    sequia   G05   I      1658.</span></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="do">## # ℹ 140 more rows</span></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="do">## $data$clean</span></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a><span class="do">##     index    riego geno bloque      lfa</span></span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="do">## 1       1   sequia  G01     II  2900.00</span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a><span class="do">## 2       2   sequia  G02     IV  2618.85</span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="do">## 3       3 irrigado  G01    III  7578.79</span></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a><span class="do">## 4       4   sequia  G02      I  2449.59</span></span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="do">## 5       5 irrigado  G03     II  5412.51</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a><span class="do">## 6       6 irrigado  G04      V  9791.10</span></span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a><span class="do">## 7       7 irrigado  G01      I  7038.08</span></span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a><span class="do">## 8       8 irrigado  G05     IV  9793.99</span></span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a><span class="do">## 9       9   sequia  G06     II  3198.96</span></span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a><span class="do">## 10     10   sequia  G05      I  1657.64</span></span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a><span class="do">## 11     11 irrigado  G01     II  7982.73</span></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a><span class="do">## 12     12   sequia  G07     II  1097.98</span></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a><span class="do">## 13     13 irrigado  G08     II  7310.01</span></span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a><span class="do">## 14     14 irrigado  G06    III  6576.65</span></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a><span class="do">## 15     15 irrigado  G09    III 10764.71</span></span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a><span class="do">## 16     16 irrigado  G10     II  5171.21</span></span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a><span class="do">## 17     17   sequia  G11      I  1556.38</span></span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a><span class="do">## 18     18   sequia  G12    III  2425.26</span></span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a><span class="do">## 19     19 irrigado  G07      I  1065.26</span></span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a><span class="do">## 20     20 irrigado  G04     II 10811.84</span></span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a><span class="do">## 21     21 irrigado  G13     II  9743.70</span></span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a><span class="do">## 22     22 irrigado  G14    III  7895.00</span></span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a><span class="do">## 23     23 irrigado  G04     IV 10305.61</span></span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a><span class="do">## 24     24   sequia  G04      V  3218.63</span></span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a><span class="do">## 25     25   sequia  G08      V  2697.93</span></span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a><span class="do">## 26     26   sequia  G04    III  3263.70</span></span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a><span class="do">## 27     27   sequia  G01     IV  2994.58</span></span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a><span class="do">## 28     28 irrigado  G10      I  6164.24</span></span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a><span class="do">## 29     29 irrigado  G08      V  7469.58</span></span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a><span class="do">## 30     30 irrigado  G02      V  5233.55</span></span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a><span class="do">## 31     31 irrigado  G07    III  1607.25</span></span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a><span class="do">## 32     32 irrigado  G08      I  6998.00</span></span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a><span class="do">## 33     33 irrigado  G14      V  8978.89</span></span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a><span class="do">## 34     34 irrigado  G03      I  5545.69</span></span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a><span class="do">## 35     35   sequia  G13    III  3120.00</span></span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a><span class="do">## 36     36   sequia  G01      V  2999.66</span></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a><span class="do">## 37     37   sequia  G03      I  2274.48</span></span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a><span class="do">## 38     38 irrigado  G15    III  6302.79</span></span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a><span class="do">## 39     39 irrigado  G03     IV  5305.77</span></span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a><span class="do">## 40     40 irrigado  G09     IV       NA</span></span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a><span class="do">## 41     41 irrigado  G11     II       NA</span></span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a><span class="do">## 42     42   sequia  G03      V  2147.55</span></span>
+<span id="cb27-93"><a href="#cb27-93" aria-hidden="true" tabindex="-1"></a><span class="do">## 43     43   sequia  G11    III  2301.31</span></span>
+<span id="cb27-94"><a href="#cb27-94" aria-hidden="true" tabindex="-1"></a><span class="do">## 44     44 irrigado  G06      V       NA</span></span>
+<span id="cb27-95"><a href="#cb27-95" aria-hidden="true" tabindex="-1"></a><span class="do">## 45     45   sequia  G05      V  1771.80</span></span>
+<span id="cb27-96"><a href="#cb27-96" aria-hidden="true" tabindex="-1"></a><span class="do">## 46     46   sequia  G08     IV  2021.37</span></span>
+<span id="cb27-97"><a href="#cb27-97" aria-hidden="true" tabindex="-1"></a><span class="do">## 47     47 irrigado  G11     IV  8005.55</span></span>
+<span id="cb27-98"><a href="#cb27-98" aria-hidden="true" tabindex="-1"></a><span class="do">## 48     48   sequia  G11     II  1942.23</span></span>
+<span id="cb27-99"><a href="#cb27-99" aria-hidden="true" tabindex="-1"></a><span class="do">## 49     49 irrigado  G10    III  6028.93</span></span>
+<span id="cb27-100"><a href="#cb27-100" aria-hidden="true" tabindex="-1"></a><span class="do">## 50     50   sequia  G06     IV  3550.19</span></span>
+<span id="cb27-101"><a href="#cb27-101" aria-hidden="true" tabindex="-1"></a><span class="do">## 51     51   sequia  G09      I  3238.41</span></span>
+<span id="cb27-102"><a href="#cb27-102" aria-hidden="true" tabindex="-1"></a><span class="do">## 52     52 irrigado  G11      I  6210.41</span></span>
+<span id="cb27-103"><a href="#cb27-103" aria-hidden="true" tabindex="-1"></a><span class="do">## 53     53   sequia  G11     IV  2237.88</span></span>
+<span id="cb27-104"><a href="#cb27-104" aria-hidden="true" tabindex="-1"></a><span class="do">## 54     54 irrigado  G15     IV  6270.00</span></span>
+<span id="cb27-105"><a href="#cb27-105" aria-hidden="true" tabindex="-1"></a><span class="do">## 55     55 irrigado  G13     IV  9430.43</span></span>
+<span id="cb27-106"><a href="#cb27-106" aria-hidden="true" tabindex="-1"></a><span class="do">## 56     56   sequia  G14      V  3664.65</span></span>
+<span id="cb27-107"><a href="#cb27-107" aria-hidden="true" tabindex="-1"></a><span class="do">## 57     57 irrigado  G02     IV       NA</span></span>
+<span id="cb27-108"><a href="#cb27-108" aria-hidden="true" tabindex="-1"></a><span class="do">## 58     58 irrigado  G09     II       NA</span></span>
+<span id="cb27-109"><a href="#cb27-109" aria-hidden="true" tabindex="-1"></a><span class="do">## 59     59 irrigado  G02    III  5162.74</span></span>
+<span id="cb27-110"><a href="#cb27-110" aria-hidden="true" tabindex="-1"></a><span class="do">## 60     60   sequia  G08    III  2550.51</span></span>
+<span id="cb27-111"><a href="#cb27-111" aria-hidden="true" tabindex="-1"></a><span class="do">## 61     61 irrigado  G06     II  6938.90</span></span>
+<span id="cb27-112"><a href="#cb27-112" aria-hidden="true" tabindex="-1"></a><span class="do">## 62     62   sequia  G13     IV  3062.34</span></span>
+<span id="cb27-113"><a href="#cb27-113" aria-hidden="true" tabindex="-1"></a><span class="do">## 63     63   sequia  G14    III  3449.76</span></span>
+<span id="cb27-114"><a href="#cb27-114" aria-hidden="true" tabindex="-1"></a><span class="do">## 64     64   sequia  G04     II  2511.13</span></span>
+<span id="cb27-115"><a href="#cb27-115" aria-hidden="true" tabindex="-1"></a><span class="do">## 65     65 irrigado  G11    III       NA</span></span>
+<span id="cb27-116"><a href="#cb27-116" aria-hidden="true" tabindex="-1"></a><span class="do">## 66     66 irrigado  G07     II  1068.97</span></span>
+<span id="cb27-117"><a href="#cb27-117" aria-hidden="true" tabindex="-1"></a><span class="do">## 67     67 irrigado  G08     IV  7643.80</span></span>
+<span id="cb27-118"><a href="#cb27-118" aria-hidden="true" tabindex="-1"></a><span class="do">## 68     68   sequia  G05     IV  1821.46</span></span>
+<span id="cb27-119"><a href="#cb27-119" aria-hidden="true" tabindex="-1"></a><span class="do">## 69     69 irrigado  G04      I  8569.08</span></span>
+<span id="cb27-120"><a href="#cb27-120" aria-hidden="true" tabindex="-1"></a><span class="do">## 70     70 irrigado  G11      V  7225.02</span></span>
+<span id="cb27-121"><a href="#cb27-121" aria-hidden="true" tabindex="-1"></a><span class="do">## 71     71 irrigado  G12      I  7194.26</span></span>
+<span id="cb27-122"><a href="#cb27-122" aria-hidden="true" tabindex="-1"></a><span class="do">## 72     72   sequia  G14     IV  3318.36</span></span>
+<span id="cb27-123"><a href="#cb27-123" aria-hidden="true" tabindex="-1"></a><span class="do">## 73     73   sequia  G07    III   811.45</span></span>
+<span id="cb27-124"><a href="#cb27-124" aria-hidden="true" tabindex="-1"></a><span class="do">## 74     74 irrigado  G03    III  5450.00</span></span>
+<span id="cb27-125"><a href="#cb27-125" aria-hidden="true" tabindex="-1"></a><span class="do">## 75     75   sequia  G01      I  3100.00</span></span>
+<span id="cb27-126"><a href="#cb27-126" aria-hidden="true" tabindex="-1"></a><span class="do">## 76     76   sequia  G04      I  3010.27</span></span>
+<span id="cb27-127"><a href="#cb27-127" aria-hidden="true" tabindex="-1"></a><span class="do">## 77     77   sequia  G03     II  2107.76</span></span>
+<span id="cb27-128"><a href="#cb27-128" aria-hidden="true" tabindex="-1"></a><span class="do">## 78     78 irrigado  G15     II  6304.88</span></span>
+<span id="cb27-129"><a href="#cb27-129" aria-hidden="true" tabindex="-1"></a><span class="do">## 79     79   sequia  G12     IV  2480.00</span></span>
+<span id="cb27-130"><a href="#cb27-130" aria-hidden="true" tabindex="-1"></a><span class="do">## 80     80   sequia  G12      I  2400.00</span></span>
+<span id="cb27-131"><a href="#cb27-131" aria-hidden="true" tabindex="-1"></a><span class="do">## 81     81   sequia  G08      I  2319.71</span></span>
+<span id="cb27-132"><a href="#cb27-132" aria-hidden="true" tabindex="-1"></a><span class="do">## 82     82   sequia  G05     II  1700.00</span></span>
+<span id="cb27-133"><a href="#cb27-133" aria-hidden="true" tabindex="-1"></a><span class="do">## 83     83   sequia  G02     II  2966.18</span></span>
+<span id="cb27-134"><a href="#cb27-134" aria-hidden="true" tabindex="-1"></a><span class="do">## 84     84   sequia  G10      I  3136.07</span></span>
+<span id="cb27-135"><a href="#cb27-135" aria-hidden="true" tabindex="-1"></a><span class="do">## 85     85   sequia  G15      I  1814.84</span></span>
+<span id="cb27-136"><a href="#cb27-136" aria-hidden="true" tabindex="-1"></a><span class="do">## 86     86 irrigado  G07      V  1140.05</span></span>
+<span id="cb27-137"><a href="#cb27-137" aria-hidden="true" tabindex="-1"></a><span class="do">## 87     87   sequia  G10      V  2909.10</span></span>
+<span id="cb27-138"><a href="#cb27-138" aria-hidden="true" tabindex="-1"></a><span class="do">## 88     88   sequia  G13     II  3110.00</span></span>
+<span id="cb27-139"><a href="#cb27-139" aria-hidden="true" tabindex="-1"></a><span class="do">## 89     89   sequia  G07      V   495.83</span></span>
+<span id="cb27-140"><a href="#cb27-140" aria-hidden="true" tabindex="-1"></a><span class="do">## 90     90   sequia  G03    III  1953.50</span></span>
+<span id="cb27-141"><a href="#cb27-141" aria-hidden="true" tabindex="-1"></a><span class="do">## 91     91   sequia  G15     IV  1750.00</span></span>
+<span id="cb27-142"><a href="#cb27-142" aria-hidden="true" tabindex="-1"></a><span class="do">## 92     92   sequia  G13      I  3191.97</span></span>
+<span id="cb27-143"><a href="#cb27-143" aria-hidden="true" tabindex="-1"></a><span class="do">## 93     93   sequia  G03     IV  1811.97</span></span>
+<span id="cb27-144"><a href="#cb27-144" aria-hidden="true" tabindex="-1"></a><span class="do">## 94     94 irrigado  G10      V  4249.18</span></span>
+<span id="cb27-145"><a href="#cb27-145" aria-hidden="true" tabindex="-1"></a><span class="do">## 95     95   sequia  G13      V  3146.19</span></span>
+<span id="cb27-146"><a href="#cb27-146" aria-hidden="true" tabindex="-1"></a><span class="do">## 96     96   sequia  G09     II  3235.10</span></span>
+<span id="cb27-147"><a href="#cb27-147" aria-hidden="true" tabindex="-1"></a><span class="do">## 97     97 irrigado  G14     IV       NA</span></span>
+<span id="cb27-148"><a href="#cb27-148" aria-hidden="true" tabindex="-1"></a><span class="do">## 98     98 irrigado  G01      V  6539.86</span></span>
+<span id="cb27-149"><a href="#cb27-149" aria-hidden="true" tabindex="-1"></a><span class="do">## 99     99   sequia  G01    III  3203.70</span></span>
+<span id="cb27-150"><a href="#cb27-150" aria-hidden="true" tabindex="-1"></a><span class="do">## 100   100 irrigado  G06     IV  7864.08</span></span>
+<span id="cb27-151"><a href="#cb27-151" aria-hidden="true" tabindex="-1"></a><span class="do">## 101   101   sequia  G04     IV  2889.83</span></span>
+<span id="cb27-152"><a href="#cb27-152" aria-hidden="true" tabindex="-1"></a><span class="do">## 102   102 irrigado  G15      V  6522.46</span></span>
+<span id="cb27-153"><a href="#cb27-153" aria-hidden="true" tabindex="-1"></a><span class="do">## 103   103 irrigado  G13    III       NA</span></span>
+<span id="cb27-154"><a href="#cb27-154" aria-hidden="true" tabindex="-1"></a><span class="do">## 104   104 irrigado  G02     II  6478.14</span></span>
+<span id="cb27-155"><a href="#cb27-155" aria-hidden="true" tabindex="-1"></a><span class="do">## 105   105   sequia  G08     II  2278.60</span></span>
+<span id="cb27-156"><a href="#cb27-156" aria-hidden="true" tabindex="-1"></a><span class="do">## 106   106 irrigado  G04    III  8867.03</span></span>
+<span id="cb27-157"><a href="#cb27-157" aria-hidden="true" tabindex="-1"></a><span class="do">## 107   107   sequia  G02      V  3063.35</span></span>
+<span id="cb27-158"><a href="#cb27-158" aria-hidden="true" tabindex="-1"></a><span class="do">## 108   108   sequia  G06      V  3159.54</span></span>
+<span id="cb27-159"><a href="#cb27-159" aria-hidden="true" tabindex="-1"></a><span class="do">## 109   109 irrigado  G15      I  6435.00</span></span>
+<span id="cb27-160"><a href="#cb27-160" aria-hidden="true" tabindex="-1"></a><span class="do">## 110   110 irrigado  G13      V  8750.00</span></span>
+<span id="cb27-161"><a href="#cb27-161" aria-hidden="true" tabindex="-1"></a><span class="do">## 111   111 irrigado  G05      V  8189.67</span></span>
+<span id="cb27-162"><a href="#cb27-162" aria-hidden="true" tabindex="-1"></a><span class="do">## 112   112   sequia  G09    III  2961.78</span></span>
+<span id="cb27-163"><a href="#cb27-163" aria-hidden="true" tabindex="-1"></a><span class="do">## 113   113   sequia  G09      V  2781.32</span></span>
+<span id="cb27-164"><a href="#cb27-164" aria-hidden="true" tabindex="-1"></a><span class="do">## 114   114   sequia  G10     II  2940.95</span></span>
+<span id="cb27-165"><a href="#cb27-165" aria-hidden="true" tabindex="-1"></a><span class="do">## 115   115 irrigado  G07     IV  1989.25</span></span>
+<span id="cb27-166"><a href="#cb27-166" aria-hidden="true" tabindex="-1"></a><span class="do">## 116   116 irrigado  G05      I       NA</span></span>
+<span id="cb27-167"><a href="#cb27-167" aria-hidden="true" tabindex="-1"></a><span class="do">## 117   117 irrigado  G02      I  4631.00</span></span>
+<span id="cb27-168"><a href="#cb27-168" aria-hidden="true" tabindex="-1"></a><span class="do">## 118   118   sequia  G05    III  1967.49</span></span>
+<span id="cb27-169"><a href="#cb27-169" aria-hidden="true" tabindex="-1"></a><span class="do">## 119   119 irrigado  G12     II       NA</span></span>
+<span id="cb27-170"><a href="#cb27-170" aria-hidden="true" tabindex="-1"></a><span class="do">## 120   120   sequia  G15    III  1601.06</span></span>
+<span id="cb27-171"><a href="#cb27-171" aria-hidden="true" tabindex="-1"></a><span class="do">## 121   121 irrigado  G13      I  8256.98</span></span>
+<span id="cb27-172"><a href="#cb27-172" aria-hidden="true" tabindex="-1"></a><span class="do">## 122   122   sequia  G14     II  3811.99</span></span>
+<span id="cb27-173"><a href="#cb27-173" aria-hidden="true" tabindex="-1"></a><span class="do">## 123   123   sequia  G12     II  2438.98</span></span>
+<span id="cb27-174"><a href="#cb27-174" aria-hidden="true" tabindex="-1"></a><span class="do">## 124   124   sequia  G15     II  1560.00</span></span>
+<span id="cb27-175"><a href="#cb27-175" aria-hidden="true" tabindex="-1"></a><span class="do">## 125   125 irrigado  G09      V       NA</span></span>
+<span id="cb27-176"><a href="#cb27-176" aria-hidden="true" tabindex="-1"></a><span class="do">## 126   126   sequia  G06      I  3381.68</span></span>
+<span id="cb27-177"><a href="#cb27-177" aria-hidden="true" tabindex="-1"></a><span class="do">## 127   127   sequia  G09     IV  3150.00</span></span>
+<span id="cb27-178"><a href="#cb27-178" aria-hidden="true" tabindex="-1"></a><span class="do">## 128   128   sequia  G15      V  1176.63</span></span>
+<span id="cb27-179"><a href="#cb27-179" aria-hidden="true" tabindex="-1"></a><span class="do">## 129   129 irrigado  G14      I       NA</span></span>
+<span id="cb27-180"><a href="#cb27-180" aria-hidden="true" tabindex="-1"></a><span class="do">## 130   130   sequia  G06    III  3450.00</span></span>
+<span id="cb27-181"><a href="#cb27-181" aria-hidden="true" tabindex="-1"></a><span class="do">## 131   131 irrigado  G01     IV  7750.00</span></span>
+<span id="cb27-182"><a href="#cb27-182" aria-hidden="true" tabindex="-1"></a><span class="do">## 132   132 irrigado  G12    III  7164.03</span></span>
+<span id="cb27-183"><a href="#cb27-183" aria-hidden="true" tabindex="-1"></a><span class="do">## 133   133   sequia  G12      V  2487.78</span></span>
+<span id="cb27-184"><a href="#cb27-184" aria-hidden="true" tabindex="-1"></a><span class="do">## 134   134 irrigado  G12      V  8603.78</span></span>
+<span id="cb27-185"><a href="#cb27-185" aria-hidden="true" tabindex="-1"></a><span class="do">## 135   135   sequia  G11      V  2274.26</span></span>
+<span id="cb27-186"><a href="#cb27-186" aria-hidden="true" tabindex="-1"></a><span class="do">## 136   136 irrigado  G12     IV  8012.79</span></span>
+<span id="cb27-187"><a href="#cb27-187" aria-hidden="true" tabindex="-1"></a><span class="do">## 137   137 irrigado  G09      I 10919.31</span></span>
+<span id="cb27-188"><a href="#cb27-188" aria-hidden="true" tabindex="-1"></a><span class="do">## 138   138   sequia  G02    III  2487.28</span></span>
+<span id="cb27-189"><a href="#cb27-189" aria-hidden="true" tabindex="-1"></a><span class="do">## 139   139   sequia  G07      I   216.31</span></span>
+<span id="cb27-190"><a href="#cb27-190" aria-hidden="true" tabindex="-1"></a><span class="do">## 140   140 irrigado  G08    III  7012.74</span></span>
+<span id="cb27-191"><a href="#cb27-191" aria-hidden="true" tabindex="-1"></a><span class="do">## 141   141 irrigado  G06      I  6857.13</span></span>
+<span id="cb27-192"><a href="#cb27-192" aria-hidden="true" tabindex="-1"></a><span class="do">## 142   142 irrigado  G10     IV  4743.16</span></span>
+<span id="cb27-193"><a href="#cb27-193" aria-hidden="true" tabindex="-1"></a><span class="do">## 143   143 irrigado  G03      V  5369.88</span></span>
+<span id="cb27-194"><a href="#cb27-194" aria-hidden="true" tabindex="-1"></a><span class="do">## 144   144   sequia  G07     IV   782.10</span></span>
+<span id="cb27-195"><a href="#cb27-195" aria-hidden="true" tabindex="-1"></a><span class="do">## 145   145 irrigado  G05    III  8913.12</span></span>
+<span id="cb27-196"><a href="#cb27-196" aria-hidden="true" tabindex="-1"></a><span class="do">## 146   146   sequia  G14      I  3326.93</span></span>
+<span id="cb27-197"><a href="#cb27-197" aria-hidden="true" tabindex="-1"></a><span class="do">## 147   147   sequia  G10    III  3096.00</span></span>
+<span id="cb27-198"><a href="#cb27-198" aria-hidden="true" tabindex="-1"></a><span class="do">## 148   148 irrigado  G14     II  9221.24</span></span>
+<span id="cb27-199"><a href="#cb27-199" aria-hidden="true" tabindex="-1"></a><span class="do">## 149   149 irrigado  G05     II       NA</span></span>
+<span id="cb27-200"><a href="#cb27-200" aria-hidden="true" tabindex="-1"></a><span class="do">## 150   150   sequia  G10     IV  2541.12</span></span>
+<span id="cb27-201"><a href="#cb27-201" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb27-202"><a href="#cb27-202" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb27-203"><a href="#cb27-203" aria-hidden="true" tabindex="-1"></a><span class="do">## $outliers</span></span>
+<span id="cb27-204"><a href="#cb27-204" aria-hidden="true" tabindex="-1"></a><span class="do">##     index    riego geno bloque      lfa      resi   res_MAD         rawp.BHStud</span></span>
+<span id="cb27-205"><a href="#cb27-205" aria-hidden="true" tabindex="-1"></a><span class="do">## 40     40 irrigado  G09     IV  8533.54 -1821.843 -5.382198 0.00000007358196186</span></span>
+<span id="cb27-206"><a href="#cb27-206" aria-hidden="true" tabindex="-1"></a><span class="do">## 41     41 irrigado  G11     II  3966.33 -2921.009 -8.629420 0.00000000000000000</span></span>
+<span id="cb27-207"><a href="#cb27-207" aria-hidden="true" tabindex="-1"></a><span class="do">## 44     44 irrigado  G06      V  9040.06  1586.844  4.687948 0.00000275958224139</span></span>
+<span id="cb27-208"><a href="#cb27-208" aria-hidden="true" tabindex="-1"></a><span class="do">## 57     57 irrigado  G02     IV  7392.38  1545.147  4.564765 0.00000500053779318</span></span>
+<span id="cb27-209"><a href="#cb27-209" aria-hidden="true" tabindex="-1"></a><span class="do">## 58     58 irrigado  G09     II 12296.22  1976.049  5.837760 0.00000000529071831</span></span>
+<span id="cb27-210"><a href="#cb27-210" aria-hidden="true" tabindex="-1"></a><span class="do">## 65     65 irrigado  G11    III  8867.09  2014.449  5.951205 0.00000000266175237</span></span>
+<span id="cb27-211"><a href="#cb27-211" aria-hidden="true" tabindex="-1"></a><span class="do">## 97     97 irrigado  G14     IV  9776.01  1324.207  3.912051 0.00009151556329234</span></span>
+<span id="cb27-212"><a href="#cb27-212" aria-hidden="true" tabindex="-1"></a><span class="do">## 103   103 irrigado  G13    III  7180.79 -1489.351 -4.399930 0.00001082858978219</span></span>
+<span id="cb27-213"><a href="#cb27-213" aria-hidden="true" tabindex="-1"></a><span class="do">## 116   116 irrigado  G05      I  7205.94 -1577.072 -4.659080 0.00000317625961999</span></span>
+<span id="cb27-214"><a href="#cb27-214" aria-hidden="true" tabindex="-1"></a><span class="do">## 119   119 irrigado  G12     II  6111.43 -1338.287 -3.953649 0.00007696837896431</span></span>
+<span id="cb27-215"><a href="#cb27-215" aria-hidden="true" tabindex="-1"></a><span class="do">## 125   125 irrigado  G09      V  8924.78 -1360.784 -4.020111 0.00005817084375703</span></span>
+<span id="cb27-216"><a href="#cb27-216" aria-hidden="true" tabindex="-1"></a><span class="do">## 129   129 irrigado  G14      I  6049.52 -2238.868 -6.614197 0.00000000003735745</span></span>
+<span id="cb27-217"><a href="#cb27-217" aria-hidden="true" tabindex="-1"></a><span class="do">## 149   149 irrigado  G05     II 10291.06  1379.845  4.076419 0.00004573459036372</span></span>
+<span id="cb27-218"><a href="#cb27-218" aria-hidden="true" tabindex="-1"></a><span class="do">##                    adjp            bholm out_flag</span></span>
+<span id="cb27-219"><a href="#cb27-219" aria-hidden="true" tabindex="-1"></a><span class="do">## 40  0.00000007358196186 0.00001074296643  OUTLIER</span></span>
+<span id="cb27-220"><a href="#cb27-220" aria-hidden="true" tabindex="-1"></a><span class="do">## 41  0.00000000000000000 0.00000000000000  OUTLIER</span></span>
+<span id="cb27-221"><a href="#cb27-221" aria-hidden="true" tabindex="-1"></a><span class="do">## 44  0.00000275958224139 0.00040013942500  OUTLIER</span></span>
+<span id="cb27-222"><a href="#cb27-222" aria-hidden="true" tabindex="-1"></a><span class="do">## 57  0.00000500053779318 0.00071507690442  OUTLIER</span></span>
+<span id="cb27-223"><a href="#cb27-223" aria-hidden="true" tabindex="-1"></a><span class="do">## 58  0.00000000529071831 0.00000077773559  OUTLIER</span></span>
+<span id="cb27-224"><a href="#cb27-224" aria-hidden="true" tabindex="-1"></a><span class="do">## 65  0.00000000266175237 0.00000039393935  OUTLIER</span></span>
+<span id="cb27-225"><a href="#cb27-225" aria-hidden="true" tabindex="-1"></a><span class="do">## 97  0.00009151556329234 0.01262914773434  OUTLIER</span></span>
+<span id="cb27-226"><a href="#cb27-226" aria-hidden="true" tabindex="-1"></a><span class="do">## 103 0.00001082858978219 0.00153765974907  OUTLIER</span></span>
+<span id="cb27-227"><a href="#cb27-227" aria-hidden="true" tabindex="-1"></a><span class="do">## 116 0.00000317625961999 0.00045738138528  OUTLIER</span></span>
+<span id="cb27-228"><a href="#cb27-228" aria-hidden="true" tabindex="-1"></a><span class="do">## 119 0.00007696837896431 0.01069860467604  OUTLIER</span></span>
+<span id="cb27-229"><a href="#cb27-229" aria-hidden="true" tabindex="-1"></a><span class="do">## 125 0.00005817084375703 0.00814391812598  OUTLIER</span></span>
+<span id="cb27-230"><a href="#cb27-230" aria-hidden="true" tabindex="-1"></a><span class="do">## 129 0.00000000003735745 0.00000000556626  OUTLIER</span></span>
+<span id="cb27-231"><a href="#cb27-231" aria-hidden="true" tabindex="-1"></a><span class="do">## 149 0.00004573459036372 0.00644857724128  OUTLIER</span></span>
+<span id="cb27-232"><a href="#cb27-232" aria-hidden="true" tabindex="-1"></a><span class="do">## </span></span>
+<span id="cb27-233"><a href="#cb27-233" aria-hidden="true" tabindex="-1"></a><span class="do">## $diagplot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="hector_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:98.0%"></p>
+</figure>
+</div>
+</div>
+<pre><code>## 
+## $model
+## $model$raw
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: lfa ~ riego + geno + riego * geno + (1 | bloque)
+##    Data: rawdt
+## REML criterion at convergence: 1976.727
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  bloque   (Intercept) 101.5   
+##  Residual             741.6   
+## Number of obs: 150, groups:  bloque, 5
+## Fixed Effects:
+##         (Intercept)          riegosequia              genoG02  
+##             7377.89             -4338.30             -1598.33  
+##             genoG03              genoG04              genoG05  
+##            -1961.12              2291.04              1500.86  
+##             genoG06              genoG07              genoG08  
+##               77.47             -6003.74               -91.07  
+##             genoG09              genoG10              genoG11  
+##             2909.82             -2106.55              -523.01  
+##             genoG12              genoG13              genoG14  
+##               39.37              1294.49              1006.24  
+##             genoG15  riegosequia:genoG02  riegosequia:genoG03  
+##            -1010.87              1275.79               980.59  
+## riegosequia:genoG04  riegosequia:genoG05  riegosequia:genoG06  
+##            -2351.92             -2756.77               231.01  
+## riegosequia:genoG07  riegosequia:genoG08  riegosequia:genoG09  
+##             3644.88              -574.90             -2876.09  
+## riegosequia:genoG10  riegosequia:genoG11  riegosequia:genoG12  
+##             1991.61              -454.16              -632.55  
+## riegosequia:genoG13  riegosequia:genoG14  riegosequia:genoG15  
+##            -1207.98              -531.49              -448.22  
+## 
+## $model$clean
+## Linear mixed model fit by REML ['lmerMod']
+## Formula: lfa ~ riego + geno + riego * geno + (1 | bloque)
+##    Data: cleandt
+## REML criterion at convergence: 1651.184
+## Random effects:
+##  Groups   Name        Std.Dev.
+##  bloque   (Intercept) 106.6   
+##  Residual             432.2   
+## Number of obs: 137, groups:  bloque, 5
+## Fixed Effects:
+##         (Intercept)          riegosequia              genoG02  
+##             7377.89             -4338.30             -1980.26  
+##             genoG03              genoG04              genoG05  
+##            -1961.12              2291.04              1579.63  
+##             genoG06              genoG07              genoG08  
+##             -326.74             -6003.74               -91.07  
+##             genoG09              genoG10              genoG11  
+##             3532.95             -2106.55              -212.24  
+##             genoG12              genoG13              genoG14  
+##              387.00              1660.20              1312.54  
+##             genoG15  riegosequia:genoG02  riegosequia:genoG03  
+##            -1010.87              1657.73               980.59  
+## riegosequia:genoG04  riegosequia:genoG05  riegosequia:genoG06  
+##            -2351.92             -2835.54               635.22  
+## riegosequia:genoG07  riegosequia:genoG08  riegosequia:genoG09  
+##             3644.88              -574.90             -3499.22  
+## riegosequia:genoG10  riegosequia:genoG11  riegosequia:genoG12  
+##             1991.61              -764.94              -980.19  
+## riegosequia:genoG13  riegosequia:genoG14  riegosequia:genoG15  
+##            -1573.69              -837.79              -448.22</code></pre>
+</div>
 </section>
 
 </main>
