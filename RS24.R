@@ -15,3 +15,11 @@ library(googlesheets4)
 url <- "https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
 gs <- as_sheets_id(url)
 fb <- googlesheets4::range_read(ss= gs ,  sheet =  "fb")
+
+
+
+library(phyloseq); packageVersion("phyloseq")
+library(Biostrings); packageVersion("Biostrings")
+library(ggplot2); packageVersion("ggplot2")
+
+BiocManager::install("dada2")
