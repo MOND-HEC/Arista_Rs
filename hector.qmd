@@ -242,7 +242,52 @@ ggplot(grupos, aes(x = geno, y = lfa, fill = riego)) +  # Asegúrate de que "LFA
   theme_minimal() +
   theme(legend.title = element_blank()) +
   scale_fill_discrete(name = "Riego")
+```
 
+```{r}
+ggplot(grupos, aes(x = geno, y = lfa, fill = riego)) + 
+  geom_bar(stat = "identity", position = "dodge", color = "black") + 
+  labs(x = "Genotipo", y = "LFA", fill = "Riego") + 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  ggtitle("Gráfico de barras: LFA por genotipo y riego") +
+  geom_text(aes(label = groups), 
+            position = position_dodge(0.9), 
+            vjust = -0.5)  # Ajusta la posición vertical de las letras
+```
+```{r}
+library(lme4)
+modelo <- lme4::lmer(formula = hi ~ riego + geno + riego*geno + (1|bloque)
+              ,data = fb)
+anova(modelo)
+```
+#emmeans: Comparacion de medias
+```{r}
+library(emmeans)
+
+# Comparaciones de medias para geno dentro de cada nivel de riego
+cm_geno <- emmeans(modelo, ~ geno | riego)
+cm_geno  # Muestra los resultados
+
+# Comparaciones de medias para riego dentro de cada nivel de geno
+```
+#Grafico 
+
+```{r}
+library(ggplot2)
+library(emmeans)
+modelo <- lm(lfa ~ bloque + riego + geno + riego * geno, data = fb)
+cm1 <- emmeans(modelo, ~ geno | riego)
+cm1_df <- as.data.frame(cm1)
+ggplot(cm1_df, aes(x = geno, y = emmean, color = riego, group = riego)) +
+  geom_line() +
+  geom_point(size = 3) +  
+  geom_text(aes(label = round(emmean, 2)),  
+            vjust = -0.5, size = 3.5) +  
+  labs(x = "Genotipo", y = "Media marginal ajustada", color = "Riego") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Medias marginales ajustadas por genotipo y riego")
 
 ```
  
