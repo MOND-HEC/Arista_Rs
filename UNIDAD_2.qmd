@@ -1,0 +1,175 @@
+---
+title: "UNIDA 2"
+author: "Hector Arista, Alexander Santilla, Lili Barbosa, Alejandro Mendoza."
+format: html
+editor: visual
+---
+
+# Importar Archivo 1
+```{r}
+source('https://inkaverse.com/setup.r')
+url <- "https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
+
+gs <- url %>% 
+  as_sheets_id()
+gs4_auth()
+fb <- gs %>% 
+  range_read("fb")
+str(fb)
+modelo <- aov(formula = lfa ~ bloque + riego + geno + riego*geno
+              ,data = fb)
+anova(modelo)
+plot(modelo)
+```
+## Modelo Lineal
+
+```{r}
+modelo <- aov(formula = op_84 ~ bloque + riego + geno + riego*geno
+              ,data = fb)
+anova(modelo)
+plot(modelo)
+```
+## Boxplot
+
+```{r}
+ggplot(fb, aes(x = geno, y = op_84, colour = riego)) +
+  geom_boxplot(outlier.colour = "red", outlier.shape = 16, outlier.size = 2) +
+  labs(title = "Boxplot con interacción de niveles de riego y genotipo", 
+       x = "Interacción Riego y Genotipo",
+       y = "Valor de la variable respuesta") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+## modelo lineal mixto para op_84
+
+```{r}
+library(lme4)
+modelo <- lmer(formula = op_84 ~ riego + geno + riego*geno + (1|bloque), data = fb)
+anova(modelo)
+plot(modelo)
+
+ol <- boxplot(op_84 ~ riego * geno, data = fb)
+ol
+
+library(inti)
+model <- remove_outliers(data = fb,
+                         formula = spad_29 ~ riego + geno + riego*geno + (1|bloque),
+                         plot_diag = TRUE)
+model
+```
+## comparacion de medias
+
+```{r}
+modelo <- aov(formula = op_84 ~ bloque + riego + geno + riego*geno
+              ,data = fb)
+anova(modelo)
+```
+### duncan
+
+```{r}
+library(agricolae)
+library(agricolae)
+library(agricolae)
+
+# Ejecutar el test de Duncan
+duncan_riego_geno <- duncan.test(modelo, trt = c("riego","geno"), group = TRUE)
+print(duncan_riego_geno)
+
+# Verificar si existen grupos formados
+if (!is.null(duncan_riego_geno$groups)) {
+  # Modificar las etiquetas de la columna de grupos para mostrar solo las primeras 2 letras
+  duncan_riego_geno$groups <- duncan_riego_geno$groups %>%
+    dplyr::mutate(groups = substr(groups, 1, 2))  # Mostrar solo las 3 primeras letras de la etiqueta
+  
+  # Graficar
+  plot(duncan_riego_geno)
+} else {
+  cat("No se puede graficar, no hay grupos formados.")
+}
+```
+###Tukey
+
+```{r}
+tukey_result <- HSD.test(modelo, c("geno", "riego"), group = TRUE)
+print(tukey_result)
+
+# Verificar si existen grupos formados
+if (!is.null(tukey_result$groups)) {
+  # Modificar los indicadores de diferenciación para mostrar solo las primeras 2 letras
+  tukey_result$groups$groups <- substr(tukey_result$groups$groups, 1, 2)
+  
+  # Graficar
+  plot(tukey_result)
+} else {
+  cat("No se puede graficar, no hay grupos formados.")
+}
+```
+```{r}
+tukey_result
+library(tidyverse)
+
+grupos <- tukey_result$groups %>% 
+  rownames_to_column("tratamientos") %>% 
+  separate(tratamientos, into = c("geno", "riego"), sep = ":")
+str(grupos)
+```
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+ggplot(grupos, aes(x = geno, y = op_84 , fill = riego)) + 
+  geom_bar(stat = "identity", position = "dodge", color = "black") + 
+  labs(x = "Genotipo", y = "spad_29", fill = "Riego") + 
+  theme_minimal() + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+  ggtitle("Gráfico de barras: op_84 por genotipo y riego") +
+  geom_text(aes(label = substr(geno, 1, 2)),  # Mostrar solo las primeras 2 letras de la columna 'geno'
+            position = position_dodge(0.9), 
+            vjust = -0.5)  # Ajusta la posición vertical de las letras
+
+```
+### emmeans: comparacion de medias 
+
+```{r}
+library(lme4)
+modelo <- lme4::lmer(formula = op_84 ~ riego + geno + riego*geno + (1|bloque), data = fb)
+anova(modelo)
+
+library(emmeans)
+library(multcomp)
+
+cm1 <- emmeans(modelo, ~ geno | riego) %>% 
+  cld(letters = letters, reversed = TRUE)
+cm1
+
+cm2 <- emmeans(modelo, ~ riego | geno) %>% 
+  cld(letters = letters, reversed = TRUE)
+cm2
+
+cm3 <- emmeans(modelo, ~ riego * geno) %>% 
+  cld(letters = letters, reversed = TRUE)
+cm3
+```
+```{r}
+# Convertir 'cm2' en un dataframe y renombrar la columna de significancia
+dtcm <- as.data.frame(cm2) %>% 
+  rename(sig = ".group")
+
+# Crear el gráfico de barras
+ggplot(dtcm, aes(x = geno, y = emmean, fill = riego)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black") +
+  geom_text(aes(label = sig, y = emmean),
+            position = position_dodge(width = 0.9),
+            vjust = -0.5) +  # Ajustar posición vertical de las letras
+  labs(x = "Genotipo", y = "op_84", fill = "Riego") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  ggtitle("Gráfico de barras: op_84 por genotipo y riego") +
+  scale_y_reverse()  # Invertir el eje Y
+
+
+
+```
+
