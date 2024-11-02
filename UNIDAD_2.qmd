@@ -5,14 +5,11 @@ format: html
 output-file: index
 editor: visual
 ---
-```{r}
-```
 
-
-```{r}
-```
+#Este es el trabajo de la página web para la 2da unidad, realizado por el grupo integrado por Hector Arista, Alexander Santillan, Lili Barbosa y Alejandro Mendoza.
 
 # Importar Archivo 1
+
 ```{r}
 source('https://inkaverse.com/setup.r')
 url <- "https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
@@ -30,8 +27,9 @@ plot(modelo)
 plot(modelo)
 ```
 
-# variable op_84
-## Modelo Lineal
+## variable op_84
+
+### Modelo Lineal(Método estadístico que describe la relación lineal entre una variable dependiente y una o más variables independientes.)
 
 ```{r}
 modelo <- aov(formula = op_84 ~ bloque + riego + geno + riego*geno
@@ -39,7 +37,8 @@ modelo <- aov(formula = op_84 ~ bloque + riego + geno + riego*geno
 anova(modelo)
 plot(modelo)
 ```
-## Boxplot
+
+### Boxplot(Gráfico que resume la distribución de datos usando la mediana, los cuartiles y valores atípicos.)
 
 ```{r}
 ggplot(fb, aes(x = geno, y = op_84, colour = riego)) +
@@ -51,7 +50,8 @@ ggplot(fb, aes(x = geno, y = op_84, colour = riego)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
-## modelo lineal mixto para op_84
+
+### Modelo Lineal Mixto para op_84 (Modelo que incluye tanto efectos fijos (constantes) como efectos aleatorios (variables por grupo o individuo).)
 
 ```{r}
 library(lme4)
@@ -68,14 +68,16 @@ model <- remove_outliers(data = fb,
                          plot_diag = TRUE)
 model
 ```
-## comparacion de medias
+
+### Comparacion de Medias (Pruebas estadísticas para identificar diferencias significativas entre medias de diferentes grupos.)
 
 ```{r}
 modelo <- aov(formula = op_84 ~ bloque + riego + geno + riego*geno
               ,data = fb)
 anova(modelo)
 ```
-### duncan
+
+### Duncan (Prueba de comparación de medias que ajusta el nivel de significancia para múltiples comparaciones, menos conservadora que Tukey.)
 
 ```{r}
 library(agricolae)
@@ -98,7 +100,8 @@ if (!is.null(duncan_riego_geno$groups)) {
   cat("No se puede graficar, no hay grupos formados.")
 }
 ```
-###Tukey
+
+###Tukey (Prueba de comparación de medias que controla el error en múltiples comparaciones, útil en ANOVA.)
 
 ```{r}
 tukey_result <- HSD.test(modelo, c("geno", "riego"), group = TRUE)
@@ -115,6 +118,7 @@ if (!is.null(tukey_result$groups)) {
   cat("No se puede graficar, no hay grupos formados.")
 }
 ```
+
 ```{r}
 tukey_result
 library(tidyverse)
@@ -124,6 +128,7 @@ grupos <- tukey_result$groups %>%
   separate(tratamientos, into = c("geno", "riego"), sep = ":")
 str(grupos)
 ```
+
 ```{r}
 library(ggplot2)
 library(dplyr)
@@ -140,7 +145,8 @@ ggplot(grupos, aes(x = geno, y = op_84 , fill = riego)) +
             vjust = -0.5)  # Ajusta la posición vertical de las letras
 
 ```
-### emmeans: comparacion de medias 
+
+### Emmeans: Comparacion de Medias(Función en R para obtener medias marginales estimadas y compararlas estadísticamente.)
 
 ```{r}
 library(lme4)
@@ -162,6 +168,7 @@ cm3 <- emmeans(modelo, ~ riego * geno) %>%
   cld(letters = letters, reversed = TRUE)
 cm3
 ```
+
 ```{r}
 # Convertir 'cm2' en un dataframe y renombrar la columna de significancia
 dtcm <- as.data.frame(cm2) %>% 
@@ -182,15 +189,19 @@ ggplot(dtcm, aes(x = geno, y = emmean, fill = riego)) +
 
 
 ```
-#2 variable rwc_84
-## Modelo Lineal
+
+## variable 2 rwc_84 
+### Modelo Lineal(Método estadístico que describe la relación lineal entre una variable dependiente y una o más variables independientes.)
+
 ```{r}
 modelo <- aov(formula = rwc_84 ~ bloque + riego + geno + riego*geno
               ,data = fb)
 anova(modelo)
 plot(modelo)
 ```
-## Boxplot
+
+### Boxplot( Gráfico que resume la distribución de datos usando la mediana, los cuartiles y valores atípicos.)
+
 ```{r}
 ggplot(fb, aes(x = geno, y = op_84, colour = riego)) +
   geom_boxplot(outlier.colour = "red", outlier.shape = 16, outlier.size = 2) +
@@ -200,7 +211,9 @@ ggplot(fb, aes(x = geno, y = op_84, colour = riego)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-## modelo lineal mixto para rwc_84
+
+### Modelo Lineal Mixto para rwc_84(Modelo que incluye tanto efectos fijos (constantes) como efectos aleatorios (variables por grupo o individuo).)
+
 ```{r}
 library(lme4)
 modelo <- lmer(formula = rwc_84 ~ riego + geno + riego*geno + (1|bloque), data = fb)
@@ -216,13 +229,17 @@ model <- remove_outliers(data = fb,
                          plot_diag = TRUE)
 model
 ```
-## comparacion de medias
+
+### Comparacion de Medias(Pruebas estadísticas para identificar diferencias significativas entre medias de diferentes grupos.)
+
 ```{r}
 modelo <- aov(formula =rwc_84 ~ bloque + riego + geno + riego*geno
               ,data = fb)
 anova(modelo)
 ```
-### Duncan
+
+### Duncan (Prueba de comparación de medias que ajusta el nivel de significancia para múltiples comparaciones, menos conservadora que Tukey.)
+
 ```{r}
 library(agricolae)
 library(agricolae)
@@ -244,7 +261,9 @@ if (!is.null(duncan_riego_geno$groups)) {
   cat("No se puede graficar, no hay grupos formados.")
 }
 ```
-###Tukey
+
+###Tukey (Prueba de comparación de medias que controla el error en múltiples comparaciones, útil en ANOVA.)
+
 ```{r}
 tukey_result <- HSD.test(modelo, c("geno", "riego"), group = TRUE)
 print(tukey_result)
@@ -260,6 +279,7 @@ if (!is.null(tukey_result$groups)) {
   cat("No se puede graficar, no hay grupos formados.")
 }
 ```
+
 ```{r}
 tukey_result
 library(tidyverse)
@@ -285,7 +305,9 @@ ggplot(grupos, aes(x = geno, y = rwc_84 , fill = riego)) +
             position = position_dodge(0.9), 
             vjust = -0.5)  # Ajusta la posición vertical de las letras
 ```
-### emmeans: comparacion de medias
+
+### Emmeans: Comparacion de Medias (Función en R para obtener medias marginales estimadas y compararlas estadísticamente.)
+
 ```{r}
 library(lme4)
 modelo <- lme4::lmer(formula = rwc_84 ~ riego + geno + riego*geno + (1|bloque), data = fb)
@@ -306,6 +328,7 @@ cm3 <- emmeans(modelo, ~ riego * geno) %>%
   cld(letters = letters, reversed = TRUE)
 cm3
 ```
+
 ```{r}
 # Convertir 'cm2' en un dataframe y renombrar la columna de significancia
 dtcm <- as.data.frame(cm2) %>% 
@@ -326,7 +349,9 @@ ggplot(dtcm, aes(x = geno, y = emmean, fill = riego)) +
 
 
 ```
-#Grafico 
+
+###Grafico
+
 ```{r}
 library(ggplot2)
 library(emmeans)
@@ -343,6 +368,7 @@ ggplot(cm1_df, aes(x = geno, y = emmean, color = riego, group = riego)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   ggtitle("Medias marginales ajustadas por genotipo y riego")
 ```
+
 ```{r}
 # Cargar los paquetes necesarios
 library(tidyverse)
@@ -371,10 +397,12 @@ if (ncol(fb_clean) > 1) {
 }
 
 ```
+
 ```{r}
 # Análisis multivariado
 str(fb)
 ```
+
 ```{r}
 # Instalar el paquete psych si aún no está instalado
 if (!require(psych)) install.packages("psych")
@@ -398,7 +426,9 @@ pairs.panels(
   lm = TRUE
 )
 ```
-#PCA: Annalists de componentes Principales 
+
+###PCA: Annalists de componentes Principales (Técnica que reduce la dimensionalidad de datos identificando las variables principales que explican más variabilidad.)
+
 ```{r}
 # Cargar la librería FactoMineR
 library(FactoMineR)
@@ -428,33 +458,27 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 ```
 
 ```{r}
-# Cargar bibliotecas necesarias
-install.packages("googlesheets4")
-install.packages("googledrive")
-install.packages("emmeans")
-install.packages("multcomp")
-gs4_auth()
-drive_auth()
-# Cargar bibliotecas necesarias
-library(emmeans) 
+
+if(!requireNamespace("googlesheets4", quietly = TRUE)) install.packages("googlesheets4")
+if(!requireNamespace("googledrive", quietly = TRUE)) install.packages("googledrive")
+if(!requireNamespace("emmeans", quietly = TRUE)) install.packages("emmeans")
+if(!requireNamespace("multcomp", quietly = TRUE)) install.packages("multcomp")
+
+library(googlesheets4)
+library(googledrive)
+library(emmeans)
 library(multcomp)
 
-# Cargar un script externo desde una URL
+gs4_auth()
+drive_auth()
+
 source('https://inkaverse.com/setup.r')
 
-# Mostrar el directorio de trabajo actual
-cat("Project: ", getwd(), "\n")
-
-# Cargar un script externo desde una URL
-source('https://inkaverse.com/setup.r')
-
-# Mostrar el directorio de trabajo actual
 cat("Project: ", getwd(), "\n")
 
 
 ```
+
 ```{r}
 session_info()
 ```
-
-

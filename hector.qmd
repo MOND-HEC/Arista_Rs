@@ -55,7 +55,7 @@ You can add options to executable code like this
 The `echo: false` option disables the printing of code (only output is displayed).
 
 |                                                                                                                                                           |
-|------------------------------------------------------------------------|
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | title: "como usar quarto" author: "Hector Stalin Arista Fernandez" format: html: toc: true toc-location: left number-sections: true embed_resources: true |
 
 # Quarto
@@ -95,7 +95,7 @@ esta es una formula cualquiera $$k=\frac{\left(2x-1\right)^2-1}{4}"$$
 4.  Activas GitHub Pages
 
 |                                                                                                                                                                       |
-|-----------------------------------------------------------------------:|
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
 | title: "como usar quarto" author: "Hector Arista Fernandez" format: html: toc: true toc-location: left number-sections: true embed_resources: true output-file: index |
 
 \# Quarto
@@ -135,7 +135,8 @@ esta es una formula cualquiera $$k=\frac{\left(2x-1\right)^2-1}{4}"$$
 4.  hacer puch al repositor
 5.  Activas GitHub Pages
 
-#IMPORTAR ARCHIVO 
+#IMPORTAR ARCHIVO
+
 ```{r}
 source('https://inkaverse.com/setup.r')
 url <- "https://docs.google.com/spreadsheets/d/15r7ZwcZZHbEgltlF6gSFvCTFA-CFzVBWwg3mFlRyKPs/edit?gid=172957346#gid=172957346"
@@ -152,7 +153,9 @@ anova(modelo)
 plot(modelo)
 
 ```
+
 # Box plot
+
 ```{r}
 ggplot(fb, aes(x = geno, y = lfa, colour = riego)) +
   geom_boxplot(outlier.colour = "red" , outlier.shape = 16, outlier.size = 2) +
@@ -162,6 +165,7 @@ ggplot(fb, aes(x = geno, y = lfa, colour = riego)) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  #Inclinar etiquetas del eje x
 ```
+
 ```{r}
 modelo <- aov(formula = hi ~ bloque + riego + geno + riego*geno
               ,data = fb)
@@ -169,7 +173,9 @@ anova(modelo)
 plot(modelo)
 
 ```
-# modelo lineal 
+
+# modelo lineal
+
 ```{r}
 library(lme4)
 modelo <- lme4::lmer(formula = lfa ~ riego + geno + riego*geno + (1|bloque)
@@ -191,7 +197,9 @@ model <- remove_outliers(
 )
 model
 ```
- # coparacion de medias
+
+\# coparacion de medias
+
 ```{r}
 modelo <- lm(formula = lfa ~ bloque + riego + geno + riego * geno, data = fb)
 
@@ -205,6 +213,7 @@ print(tukey_result)
 
 plot(tukey_result)
 ```
+
 ```{r}
 tukey_result
 
@@ -255,13 +264,16 @@ ggplot(grupos, aes(x = geno, y = lfa, fill = riego)) +
             position = position_dodge(0.9), 
             vjust = -0.5)  # Ajusta la posición vertical de las letras
 ```
+
 ```{r}
 library(lme4)
 modelo <- lme4::lmer(formula = hi ~ riego + geno + riego*geno + (1|bloque)
               ,data = fb)
 anova(modelo)
 ```
+
 #emmeans: Comparacion de medias
+
 ```{r}
 library(emmeans)
 
@@ -271,7 +283,8 @@ cm_geno  # Muestra los resultados
 
 # Comparaciones de medias para riego dentro de cada nivel de geno
 ```
-#Grafico 
+
+#Grafico
 
 ```{r}
 library(ggplot2)
@@ -290,38 +303,18 @@ ggplot(cm1_df, aes(x = geno, y = emmean, color = riego, group = riego)) +
   ggtitle("Medias marginales ajustadas por genotipo y riego")
 
 ```
+
 ```{r}
 
-library(tidyverse)
-library(corrplot)
 
-# Asegurarse de que 'fb' esté cargado antes de proceder
-# fb <- read.csv("ruta/al/archivo.csv")  # Descomenta y ajusta la ruta si necesitas cargar el archivo
-
-# Filtrar datos para mantener solo columnas numéricas y eliminar filas con NA
-fb_clean <- fb %>%
-  select(where(~ is.numeric(.) && any(!is.na(.)))) %>%  # Selecciona columnas numéricas con al menos un valor no NA
-  drop_na()  # Elimina filas con NA restantes
-
-# Verificar si hay suficientes columnas numéricas para calcular la correlación
-if (ncol(fb_clean) > 1) {
-  # Calcular la matriz de correlación
-  cor_matrix <- cor(fb_clean, use = "complete.obs")
-  
-  # Imprimir la matriz de correlación
-  print(cor_matrix)
-  
-  # Visualizar la matriz de correlación
-  corrplot(cor_matrix, method = "circle")
-} else {
-  cat("No hay suficientes columnas numéricas o datos completos para calcular la correlación.\n")
-}
 ```
+
 ```{r}
 # Análisis multivariado
 str(fb)
 
 ```
+
 ```{r}
 # Instalar el paquete psych si aún no está instalado
 if (!require(psych)) install.packages("psych")
@@ -347,7 +340,9 @@ pairs.panels(
 
 
 ```
- #PCA: Annalists de componentes Principales 
+
+#PCA: Annalists de componentes Principales
+
 ```{r}
 # Cargar la librería FactoMineR
 library(FactoMineR)
@@ -375,4 +370,3 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 
 
 ```
- 
