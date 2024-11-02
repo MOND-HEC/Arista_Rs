@@ -1,5 +1,6 @@
 ---
-title: "hector"
+title: "Mi primera pagina web"
+author: "Hector Arista"
 format: html
 output-file: index
 editor: visual
@@ -55,7 +56,7 @@ You can add options to executable code like this
 The `echo: false` option disables the printing of code (only output is displayed).
 
 |                                                                                                                                                           |
-|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+|------------------------------------------------------------------------|
 | title: "como usar quarto" author: "Hector Stalin Arista Fernandez" format: html: toc: true toc-location: left number-sections: true embed_resources: true |
 
 # Quarto
@@ -95,7 +96,7 @@ esta es una formula cualquiera $$k=\frac{\left(2x-1\right)^2-1}{4}"$$
 4.  Activas GitHub Pages
 
 |                                                                                                                                                                       |
-|----------------------------------------------------------------------------------------------------------------------------------------------------------------------:|
+|-----------------------------------------------------------------------:|
 | title: "como usar quarto" author: "Hector Arista Fernandez" format: html: toc: true toc-location: left number-sections: true embed_resources: true output-file: index |
 
 \# Quarto
@@ -154,7 +155,7 @@ plot(modelo)
 
 ```
 
-# Box plot
+### Boxplot (Gráfico que resume la distribución de datos usando la mediana, los cuartiles y valores atípicos.)
 
 ```{r}
 ggplot(fb, aes(x = geno, y = lfa, colour = riego)) +
@@ -174,7 +175,7 @@ plot(modelo)
 
 ```
 
-# modelo lineal
+### modelo lineal(Método estadístico que describe la relación lineal entre una variable dependiente y una o más variables independientes.)
 
 ```{r}
 library(lme4)
@@ -198,7 +199,7 @@ model <- remove_outliers(
 model
 ```
 
-\# coparacion de medias
+### coparacion de medias (Pruebas estadísticas para identificar diferencias significativas entre medias de diferentes grupos.)
 
 ```{r}
 modelo <- lm(formula = lfa ~ bloque + riego + geno + riego * geno, data = fb)
@@ -272,7 +273,7 @@ modelo <- lme4::lmer(formula = hi ~ riego + geno + riego*geno + (1|bloque)
 anova(modelo)
 ```
 
-#emmeans: Comparacion de medias
+### Emmeans: Comparacion de Medias (Función en R para obtener medias marginales estimadas y compararlas estadísticamente.)
 
 ```{r}
 library(emmeans)
@@ -284,7 +285,7 @@ cm_geno  # Muestra los resultados
 # Comparaciones de medias para riego dentro de cada nivel de geno
 ```
 
-#Grafico
+### Grafico
 
 ```{r}
 library(ggplot2)
@@ -304,10 +305,6 @@ ggplot(cm1_df, aes(x = geno, y = emmean, color = riego, group = riego)) +
 
 ```
 
-```{r}
-
-
-```
 
 ```{r}
 # Análisis multivariado
@@ -341,7 +338,7 @@ pairs.panels(
 
 ```
 
-#PCA: Annalists de componentes Principales
+###PCA: Annalists de componentes Principales (Técnica que reduce la dimensionalidad de datos identificando las variables principales que explican más variabilidad.)
 
 ```{r}
 # Cargar la librería FactoMineR
@@ -370,3 +367,25 @@ gridExtra::grid.arrange(p1, p2, nrow = 1)
 
 
 ```
+```{r}
+if(!requireNamespace("googlesheets4", quietly = TRUE)) install.packages("googlesheets4")
+if(!requireNamespace("googledrive", quietly = TRUE)) install.packages("googledrive")
+if(!requireNamespace("emmeans", quietly = TRUE)) install.packages("emmeans")
+if(!requireNamespace("multcomp", quietly = TRUE)) install.packages("multcomp")
+
+library(googlesheets4)
+library(googledrive)
+library(emmeans)
+library(multcomp)
+
+gs4_auth()
+drive_auth()
+
+source('https://inkaverse.com/setup.r')
+
+cat("Project: ", getwd(), "\n")
+```
+```{r}
+session_info()
+```
+
